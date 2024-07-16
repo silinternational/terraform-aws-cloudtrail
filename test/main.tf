@@ -10,5 +10,6 @@ module "full" {
   s3_bucket_name        = "my_cloudtrail_bucket"
   cloudtrail_name       = "aws-account-cloudtrail"
   create_access_key     = true
+  allow_log_deletion    = true
   is_multi_region_trail = true
 }
