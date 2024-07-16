@@ -65,6 +65,25 @@ resource "aws_iam_user_policy" "cloudtrail_s3" {
   })
 }
 
+resource "aws_iam_user_policy" "cloudtrail_s3_delete" {
+  count = var.allow_log_deletion ? 1 : 0
+  name  = "cloudtrail-s3-delete"
+  user  = aws_iam_user.cloudtrail_s3.name
+
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Effect   = "Allow"
+          Action   = "s3:DeleteObject"
+          Resource = "${aws_s3_bucket.cloudtrail.arn}/*"
+        }
+      ]
+    }
+  )
+}
+
 resource "aws_iam_access_key" "cloudtrail_s3" {
   count = var.create_access_key ? 1 : 0
   user  = aws_iam_user.cloudtrail_s3.name

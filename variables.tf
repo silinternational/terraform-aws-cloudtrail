@@ -1,3 +1,9 @@
+variable "allow_log_deletion" {
+  description = "Whether to allow the created IAM user to delete logs from the S3 bucket"
+  type        = bool
+  default     = false
+}
+
 variable "cloudtrail_name" {
   default     = "aws-account-cloudtrail"
   description = "The name for your Trail in AWS CloudTrail"
